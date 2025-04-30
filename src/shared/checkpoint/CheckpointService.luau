@@ -51,4 +51,15 @@ function CheckpointService.GetCheckpointPosition(player)
 	return nil
 end
 
+function CheckpointService.getCheckPointBasePartInstance(checkpointName: string): BasePart?
+	local checkpoint = checkpointsFolder:FindFirstChild(checkpointName)
+	if checkpoint and checkpoint:IsA("Model") then
+		local checkpointPart = checkpoint:FindFirstChild("cp")
+		if checkpointPart and checkpointPart:IsA("BasePart") then
+			return checkpointPart
+		end
+	end
+	return nil
+end
+
 return CheckpointService
