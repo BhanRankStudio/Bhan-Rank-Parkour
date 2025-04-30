@@ -5,7 +5,16 @@
 
     "ReplicatedStorage": {
       "Shared": {
-        "$path": "src/shared"
+        "$path": "src/shared",
+        "CheckpointRemote": {
+          "$path": "src/shared/CheckpointRemote",
+          "GetCheckpointName": {
+            "$className": "RemoteFunction"
+          },
+          "ResetCheckpoint": {
+            "$className": "RemoteEvent"
+          }
+        }
       }
     },
 
@@ -22,6 +31,10 @@
       "StarterCharacterScripts": {
         "$path": "src/client/StarterCharacterScripts"
       }
+    },
+
+    "StarterGui": {
+      "$path": "src/StarterGui"
     },
 
     "Workspace": {
