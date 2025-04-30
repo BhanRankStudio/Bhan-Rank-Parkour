@@ -3,21 +3,25 @@ local DataStoreService = game:GetService("DataStoreService")
 
 local checkpointStore = DataStoreService:GetDataStore("CheckpointData")
 local CheckpointRemote = ReplicatedStorage:WaitForChild("Shared"):WaitForChild("CheckpointRemote")
-local SpawnLocationService = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("spawn"):WaitForChild("GetSpawnLocationService"))
 local updateUIEvent = CheckpointRemote:WaitForChild("UpdateUI")
-
 local resetEvent = CheckpointRemote:WaitForChild("ResetCheckpoint")
 local getNameFunction = CheckpointRemote:WaitForChild("GetCheckpointName")
+
+local SpawnLocationService = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("spawn"):WaitForChild("GetSpawnLocationService"))
+local CheckpointService = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("checkpoint"):WaitForChild("CheckpointService"))
 
 -- Handle checkpoint reset
 resetEvent.OnServerEvent:Connect(function(player)
 	local success, err = pcall(function()
 		checkpointStore:RemoveAsync(tostring(player.UserId))
-		-- kill the player to reset their position
+
+		-- Prevent checkpoint from being immediately re-set
+		CheckpointService.skipCheckpointUntil[player.UserId] = tick() + 2
+
 		local character = player.Character or player.CharacterAdded:Wait()
 		local humanoid = character:FindFirstChildOfClass("Humanoid")
 		if humanoid then
-			humanoid.Health = 0 -- This will trigger the CharacterAdded event again
+			humanoid.Health = 0 -- Will respawn at RespawnLocation
 			player.RespawnLocation = SpawnLocationService.getSpawnLocationInstance("SpawnLocation")
 			updateUIEvent:FireClient(player, "Checkpoint reset to spawn location.")
 		end

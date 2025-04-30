@@ -16,6 +16,7 @@ local checkpointsFolder = Workspace:WaitForChild("checkpoints")
 
 -- Debounce table to track last checkpoint touched per player
 local lastTouchedCheckpoint = {}
+local skipCheckpointUntil = CheckpointService.skipCheckpointUntil
 
 -- Time threshold to ignore repeated touches (in seconds)
 local DEBOUNCE_TIME = 1.5
@@ -29,13 +30,16 @@ for _, checkpointModel in pairs(checkpointsFolder:GetChildren()) do
 				local player = Players:GetPlayerFromCharacter(character)
 				if player then
 					local now = tick()
-					local lastTime = lastTouchedCheckpoint[player.UserId] or 0
 
-					-- Only proceed if debounce time has passed
+					-- Prevent saving checkpoint if just reset
+					if skipCheckpointUntil[player.UserId] and now < skipCheckpointUntil[player.UserId] then
+						return
+					end
+
+					local lastTime = lastTouchedCheckpoint[player.UserId] or 0
 					if now - lastTime > DEBOUNCE_TIME then
 						lastTouchedCheckpoint[player.UserId] = now
 						CheckpointService.setCheckpoint(player, checkpointModel.Name)
-						-- Fire the remote event to update UI
 						updateUIEvent:FireClient(player)
 						print(player.Name .. " touched checkpoint: " .. checkpointModel.Name)
 					end
