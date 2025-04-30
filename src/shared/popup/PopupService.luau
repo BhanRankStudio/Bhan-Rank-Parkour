@@ -2,7 +2,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 
 -- Create or retrieve the RemoteEvent
-local remoteName = "ShowWelcomePopup"
+local remoteName = "ShowPopup"
 local remote = ReplicatedStorage:FindFirstChild(remoteName)
 
 if not remote then

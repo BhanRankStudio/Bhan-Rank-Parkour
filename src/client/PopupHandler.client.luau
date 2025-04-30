@@ -1,9 +1,9 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local displayPopup = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("popup"):WaitForChild("DisplayPopup"))
-local ShowWelcomePopup = ReplicatedStorage:WaitForChild("ShowWelcomePopup")
+local ShowPopup = ReplicatedStorage:WaitForChild("ShowPopup")
 
-ShowWelcomePopup.OnClientEvent:Connect(function(message, title)
+ShowPopup.OnClientEvent:Connect(function(message, title)
     displayPopup({
         title = title or "Welcome!",
         message = message,
