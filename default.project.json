@@ -7,7 +7,7 @@
       "Shared": {
         "$path": "src/shared",
         "CheckpointRemote": {
-          "$path": "src/shared/CheckpointRemote",
+          "$className": "Folder",
           "GetCheckpointName": {
             "$className": "RemoteFunction"
           },
