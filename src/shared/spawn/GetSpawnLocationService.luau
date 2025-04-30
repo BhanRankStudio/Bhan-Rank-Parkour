@@ -44,6 +44,7 @@ function SpawnLocationService.getSpawnLocationInstance(spawnName: string): Insta
     if not spawnLocation then
         warn("Spawn location not found or is not a SpawnLocation: " .. tostring(spawnName))
     end
+    
     return spawnLocation
 end
 

@@ -1,4 +1,3 @@
-print("Checkpoint server script loaded")
 
 local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")

@@ -28,7 +28,6 @@ local function getCheckpointName(player)
 		return checkpointStore:GetAsync(tostring(player.UserId))
 	end)
 	if success and checkpointName then
-		print("Loaded checkpoint for player " .. player.Name .. ": " .. checkpointName)
 		return checkpointName
 	else
 		return nil

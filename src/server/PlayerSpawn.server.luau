@@ -8,7 +8,8 @@ local CheckpointService = require(ReplicatedStorage:WaitForChild("Shared"):WaitF
 -- Handle player joining and respawning
 Players.PlayerAdded:Connect(function(player)
 	-- Set default spawn location for player
-	local defaultSpawnLocation = CheckpointService.getCheckPointBasePartInstance("cp3")
+	local defaultSpawnLocation = SpawnLocationService.getSpawnLocationInstance("SpawnLocation")
+	-- local defaultSpawnLocation = CheckpointService.getCheckPointBasePartInstance("cp3")
 	player.RespawnLocation = defaultSpawnLocation
 	
 	-- Handle character spawning (both initial and respawn)
